@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <script src="http://code.jquery.com/jquery-2.0.0.js"></script>
+    <style>
+    #map {
+      background-color: #fff;
+      border: 1px solid #ccc;
+    }
+    .background {
+      fill: none;
+      pointer-events: all;
+    }
+    #countries, #states {
+      fill: #cde;
+      stroke: #fff;
+      stroke-linejoin: round;
+      stroke-linecap: round;
+    }
+    #countries .active, #states .active {
+      fill: #89a;
+    }
+    #cities {
+      stroke-width: 0;
+    }
+    .city {
+      fill: #345;
+      stroke: #fff;
+    }
+    pre.prettyprint {
+      border: 1px solid #ccc;
+      margin-bottom: 0;
+      padding: 9.5px;
+    }
+    </style>
+  </head>
+  <body>
+    <!--<div id="map"></div>-->
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script src="http://d3js.org/topojson.v1.min.js"></script>
+    <script>
+    /* D3 business */
+
+    //var width = 420
+    //var height = 400
+
+    var width = 960;
+    var height = 1160;
+
+
+    d3.json("countries.topo.json", function(error, phl) {
+      if (error) return console.error(error);
+      
+      //console.log(phl);
+
+    var countryFeature = topojson.feature(phl, phl.objects.countries);
+
+    // see http://enjalot.github.io/intro-d3/maptime/geo/
+    var projection = d3.geo.albers()
+                       .scale(2500)
+                       .rotate([240,25,0])
+                       .translate([width/2, height/2])
+                       .clipAngle(90);
+
+      var path = d3.geo.path()
+                    .projection(projection);
+
+      svg.append("path")
+        .datum(countryFeature)
+        .attr("d", path);
+
+    });
+
+    var svg = d3.select("body").append("svg")
+      .attr("width", width)
+      .attr("height", height);
+
+
+    </script>
+  </body>
+</html>
