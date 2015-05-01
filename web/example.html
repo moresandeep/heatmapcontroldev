@@ -7,6 +7,8 @@
     #map {
       background-color: #fff;
       border: 1px solid #ccc;
+      width: 1000px;
+      height: 600px;
     }
     .background {
       fill: none;
@@ -143,7 +145,7 @@
               .attr("d", path)
               .on("click", state_clicked);
 
-            zoom(xyz);
+            //zoom(xyz);
             g.selectAll("#" + d.properties.ID_1).style('display', 'none');
           });      
         /*
